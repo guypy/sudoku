@@ -21,7 +21,8 @@ int calcPossibleValues(Cell* current, int* possible_values, int idx){
     for (i = 0; i < (N*M); ++i){
         possible_values[row*(N*M) + i] = 0;
     }
-    for (i = )
+//    for (i = )
+    return 0;
 }
 
 SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard){
@@ -45,7 +46,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
     int possible_values[N*M] = {1};
     int num_of_pos_vals = calcPossibleValues(current, possible_values, i);
     if (num_of_pos_vals == 0){
-        aux_empty_array(current->impossible_values);
+//        aux_empty_array(current->impossible_values);
         return SolveBoardRec(sudokuBoard, --i);
     }
     if (num_of_pos_vals == 1){
@@ -63,7 +64,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
 }
 
 int slvr_isValid(SudokuBoard* sudokuBoard, int i, int j) {
-    return checkRow(sudokuBoard, i, j) && checkColumn(sudokuBoard, i, j) && checkBlock(sudokuBoard, i, j)
+    return checkRow(sudokuBoard, i, j) && checkColumn(sudokuBoard, i, j) && checkBlock(sudokuBoard, i, j);
 }
 
 int checkBlock(SudokuBoard* sudokuBoard, int i, int j) {
