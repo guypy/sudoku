@@ -4,7 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/GuyP/Projects/sudoku/main.c" "/Users/GuyP/Projects/sudoku/cmake-build-debug/CMakeFiles/sudoku.dir/main.c.o"
+  "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/game.c" "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/cmake-build-debug/CMakeFiles/sudoku.dir/game.c.o"
+  "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/main.c" "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/cmake-build-debug/CMakeFiles/sudoku.dir/main.c.o"
+  "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/main_aux.c" "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/cmake-build-debug/CMakeFiles/sudoku.dir/main_aux.c.o"
+  "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/parser.c" "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/cmake-build-debug/CMakeFiles/sudoku.dir/parser.c.o"
+  "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/solver.c" "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/cmake-build-debug/CMakeFiles/sudoku.dir/solver.c.o"
+  "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/sudoku_board.c" "/Users/yuvalbarzam/Documents/TAU/Software Project/sudoku/cmake-build-debug/CMakeFiles/sudoku.dir/sudoku_board.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 
