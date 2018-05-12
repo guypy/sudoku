@@ -201,7 +201,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="980" />
@@ -252,19 +252,12 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.Build All">
-    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sudoku" TARGET_NAME="sudoku" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sudoku" RUN_TARGET_NAME="sudoku">
-      <envs />
-    </configuration>
-    <configuration name="sudoku" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sudoku" TARGET_NAME="sudoku" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sudoku" RUN_TARGET_NAME="sudoku">
-      <envs />
-    </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
-      <item index="1" class="java.lang.String" itemvalue="Application.sudoku" />
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sudoku" TARGET_NAME="sudoku" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sudoku" RUN_TARGET_NAME="sudoku" />
+    <configuration name="sudoku" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sudoku" TARGET_NAME="sudoku" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sudoku" RUN_TARGET_NAME="sudoku" />
+    <list>
+      <item itemvalue="Application.Build All" />
+      <item itemvalue="Application.sudoku" />
     </list>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
