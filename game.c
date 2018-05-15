@@ -4,7 +4,7 @@
 #include "sudoku_board.h"
 
 int gm_StartGame(){
-
+    return 0;
 }
 
 int gm_Initialize(){

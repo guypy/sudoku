@@ -68,7 +68,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
 }
 
 int slvr_isValid(SudokuBoard* sudokuBoard, int i, int j) {
-    return checkRow(sudokuBoard, i, j) && checkColumn(sudokuBoard, i, j) && checkBlock(sudokuBoard, i, j)
+    return checkRow(sudokuBoard, i, j) && checkColumn(sudokuBoard, i, j) && checkBlock(sudokuBoard, i, j);
 }
 
 int checkBlock(SudokuBoard* sudokuBoard, int i, int j) {
