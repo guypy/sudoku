@@ -18,6 +18,7 @@ SudokuBoard* sb_CreateSudokuBoard(int rows, int columns){
 
 void sb_print(SudokuBoard* sb) {
     int i;
+    printf("----------------------------------\n");
     for (i = 0; i < BOARD_SIZE; ++i){
         if (i % (N*M*M) == 0 && i != 0)
             printf("|\n----------------------------------\n| ");
@@ -27,7 +28,7 @@ void sb_print(SudokuBoard* sb) {
             printf("| ");
         }
         if (sb->cells[i]->value) {
-            printf("%d. ", sb->cells[i]->value);
+            printf(".%d ", sb->cells[i]->value);
         } else {
             printf("   ");
         }
