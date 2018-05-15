@@ -21,7 +21,12 @@ int calcPossibleValues(Cell* current, int* possible_values, int idx){
     for (i = 0; i < (N*M); ++i){
         possible_values[row*(N*M) + i] = 0;
     }
-    for (i = )
+//    // mark values in the same block as impossible
+//    int column_block = column / M;
+//    int row_block = row / N;
+//    for (i = 0; i < (N*M); ++i){
+//        possible_values[????????] = 0;
+//    }
 }
 
 SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard){
