@@ -35,3 +35,12 @@ void sb_print(SudokuBoard* sb) {
     printf("|\n----------------------------------\n");
 
 }
+
+void sb_RemoveUnfixedCells(SudokuBoard* sb){
+    int i;
+    for (i = 0; i < BOARD_SIZE; ++i){
+        if (sb->cells[i]->fixed == 0){
+            sb->cells[i]->value = 0;
+        }
+    }
+}

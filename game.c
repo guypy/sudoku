@@ -1,11 +1,9 @@
 #include "game.h"
 #include "parser.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include "sudoku_board.h"
-
-int gm_StartGame(){
-    return 0;
-}
+#include "solver.h"
 
 int gm_Initialize(){
     int num_of_fixed;
@@ -16,12 +14,73 @@ int gm_Initialize(){
         printf("Please enter the number of cells to fill [0-%d]:\n", BOARD_SIZE - 1);
         num_of_fixed = prs_ReadInt();
     }
-    return 0;
+    return num_of_fixed;
 }
 
-int gm_Generate_Puzzle(){
+SudokuBoard* gm_Generate_solution(){
+    SudokuBoard* sb = sb_CreateSudokuBoard(N,M);
+    slvr_SolveBoard(sb);
+    sb_print(sb);
+    return sb;
+}
 
+SudokuBoard* gm_Generate_puzzle(SudokuBoard solved_sb, int h){
+    int i, x, y, idx;
+    SudokuBoard* game_sb = &solved_sb; // address of the copy of solved_sb
+    for (i = 0; i < h; ++i){
+        x = rand() % M; // random column
+        y = rand() % N; // random row
+        idx = y*(N*M) + x;
+        if (!game_sb->cells[idx]->fixed){ // if cell is not yet fixed, make it fixed
+            game_sb->cells[idx]->fixed = 1;
+        }
+    }
+    sb_RemoveUnfixedCells(game_sb);
+    return game_sb;
+}
 
+void gm_set(int x, int y, int z){
+
+}
+
+void gm_hint(int x, int y){
+}
+
+void gm_validate(){
+}
+
+void gm_restart(){
+}
+
+void gm_exit(){
+}
+
+int gm_StartGame(){
+    int num_of_fixed;
+    char* cmd;
+    int action_vars[3] = {-1, -1, -1}; // array to pass to the parser which will update X,Y,Z accordingly
+    num_of_fixed = gm_Initialize();
+    SudokuBoard* solved_sb = gm_Generate_solution();
+    SudokuBoard* game_sb = gm_Generate_puzzle(*solved_sb, num_of_fixed);
+
+    while (SOLVED_PUZZLE == 0){
+        cmd = parse_cmd(action_vars);
+        if (cmd == SET){
+            gm_set(action_vars[0], action_vars[1], action_vars[2]);
+        }
+        if (cmd == HINT){
+
+        }
+        if (cmd == VALIDATE){
+
+        }
+        if (cmd == RESTART){
+
+        }
+        if (cmd == EXIT){
+
+        }
+    }
 
     return 0;
 }

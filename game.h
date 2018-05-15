@@ -5,4 +5,6 @@
 #ifndef SUDOKU_GAME_H
 #define SUDOKU_GAME_H
 
+#define SOLVED_PUZZLE 0
+
 #endif //SUDOKU_GAME_H
