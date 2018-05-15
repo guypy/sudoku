@@ -8,6 +8,7 @@
 #define SUDOKU_SOLVER_H
 
 int slvr_isValid(SudokuBoard* sudokuBoard, int i, int j);
+SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard);
 SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i);
 int checkBlock(SudokuBoard* sudokuBoard, int i, int j);
 int checkColumn(SudokuBoard* sudokuBoard, int i, int j);

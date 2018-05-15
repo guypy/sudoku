@@ -11,13 +11,9 @@ SudokuBoard* sb_CreateSudokuBoard(int rows, int columns){
     res->rows = rows;
     res->columns = columns;
     for (i = 0; i < BOARD_SIZE; ++i){
-        res->cells[i]->value = 0;
-        res->cells[i]->fixed = 0; // false
-        for (j = 0; j < N*M; ++j) {
-            res->cells[i]->impossible_values[j] = 1;
-        }
+        res->cells[i] = (Cell*)calloc(1, sizeof(Cell));
     }
-
+    return res;
 }
 
 void sb_print(SudokuBoard* sb) {

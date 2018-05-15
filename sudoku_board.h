@@ -17,6 +17,8 @@ typedef struct{
     Cell* cells[BOARD_SIZE];
 } SudokuBoard;
 
+SudokuBoard* sb_CreateSudokuBoard(int rows, int columns);
+void sb_print(SudokuBoard* sb);
 
 
 #endif //SUDOKU_SUDOKU_BOARD_H

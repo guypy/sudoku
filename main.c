@@ -1,29 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "sudoku_board.h"
+#include "solver.h"
 
 int main() {
-
-    int i;
-    int N = 3;
-    int M = 3;
-    printf("----------------------------------\n");
-    for (i = 0; i < 81; ++i){
-        int v = rand() % 9;
-
-        if (i % (N*M*M) == 0 && i != 0)
-            printf("|\n----------------------------------\n| ");
-        else if (i % (N*M) == 0 && i != 0)
-            printf("|\n| ");
-        else if (i % N == 0) {
-            printf("| ");
-        }
-        if (v) {
-            printf("%d. ", v);
-        } else {
-            printf("   ");
-        }
-    }
-    printf("|\n----------------------------------\n");
+    SudokuBoard* sb = sb_CreateSudokuBoard(9,9);
+    slvr_SolveBoard(sb);
+    sb_print(sb);
 
 
     return 0;
