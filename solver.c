@@ -10,6 +10,16 @@ int getRandValue(int* possible_values, int num_of_pos_vals) {
     return val;
 }
 
+/*
+ * @param: pointer to cell
+ * @param: pointer to a boolean array of possible values, initialized to '1' in all cells
+ * @params: index of cell, pointer to sudoku board.
+ *
+ * This function updates the possible values array for the given cell, according to the rules of the game,
+ *
+ * @return: number of possible values.
+ *
+ */
 int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard* sb){
     int column = idx % (N*M);
     int row = idx / (N*M);
@@ -95,21 +105,22 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
     return SolveBoardRec(sudokuBoard, i);
 
 }
-
-int slvr_isValid(SudokuBoard* sudokuBoard, int i, int j) {
-    return checkRow(sudokuBoard, i, j) && checkColumn(sudokuBoard, i, j) && checkBlock(sudokuBoard, i, j);
-}
-
-int checkBlock(SudokuBoard* sudokuBoard, int i, int j) {
+/*
+ * This function checks whether value z is valid to enter to the cell in index 'idx'
+ * @return: 1 if valid is valid in cell idx, 0 otherwise.
+ */
+int slvr_isValid(SudokuBoard* sudokuBoard, int idx, int value) {
+    int j;
+    int* possible_values = calloc(N*M, sizeof(int));
+    for (j = 0; j < N*M; ++j)
+        possible_values[j] = 1;
+    Cell* current = sudokuBoard->cells[idx];
+    calcPossibleValues(current, possible_values, idx, sudokuBoard);
+    if (possible_values[value - 1]){
+        return 1;
+    }
     return 0;
 }
 
-int checkColumn(SudokuBoard* sudokuBoard, int i, int j) {
-    return 0;
-}
-
-int checkRow(SudokuBoard* sudokuBoard, int i, int j) {
-    return 0;
-}
 
 

@@ -3,7 +3,7 @@
 #ifndef SUDOKU_SOLVER_H
 #define SUDOKU_SOLVER_H
 
-int slvr_isValid(SudokuBoard* sudokuBoard, int i, int j);
+int slvr_isValid(SudokuBoard* sudokuBoard, int idx, int value);
 SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard);
 SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i);
 int checkBlock(SudokuBoard* sudokuBoard, int i, int j);

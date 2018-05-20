@@ -22,6 +22,7 @@ void sb_print(SudokuBoard* sb);
 void sb_RemoveUnfixedCells(SudokuBoard* sb);
 void sb_destroyBoard(SudokuBoard* sb);
 SudokuBoard* sb_DeepCloneBoard(SudokuBoard* template_sb);
+int sb_IsFull(SudokuBoard* sb);
 
 
 #endif //SUDOKU_SUDOKU_BOARD_H
