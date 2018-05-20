@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "sudoku_board.h"
 #include "solver.h"
+#include "parser.h"
+#include "game.h"
 
 int main() {
 //    SudokuBoard* sb = sb_CreateSudokuBoard(9,9);
