@@ -5,8 +5,9 @@
 #include "parser.h"
 #include "game.h"
 
-int main() {
-    srand(3);
+int main(int p, char *argv[]) {
+    unsigned int seed = *argv[1] - '0';
+    srand(seed);
     gm_StartGame();
 
     return 0;
