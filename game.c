@@ -53,14 +53,17 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
  * @pre: x,y,z are legal values. 1 <= x,y <= N*M  0 <= z <= N*M
  */
 int gm_set(int x, int y, int z, SudokuBoard* game_sb){
-    int idx, temp;
+    int idx;
+    if (x == -1 || y == -1 || z == -1) {
+        printf("Error: invalid command\n");
+        return 1;
+    }
     idx = (N*M)*(y - 1) + (x - 1);
     if (game_sb->cells[idx]->fixed){
         printf("Error: cell is fixed\n");
         return 1;
     }
     if (z == 0 || slvr_isValid(game_sb, idx, z)){
-        temp = slvr_isValid(game_sb, idx, z);
         game_sb->cells[idx]->value = z;
     }
     else{
@@ -75,7 +78,12 @@ int gm_set(int x, int y, int z, SudokuBoard* game_sb){
 }
 
 void gm_hint(int x, int y, SudokuBoard* solved_sb){
-    int hint = solved_sb->cells[N*M*y + x]->value;
+    int hint;
+    if (x == -1 || y == -1){
+        printf("Error: invalid command\n");
+        return;
+    }
+    hint = solved_sb->cells[N*M*y + x]->value;
     printf("Hint: set cell to %d\n", hint);
 }
 
@@ -127,7 +135,6 @@ int gm_StartGame(){
             }
             if (strcmp(cmd, HINT) == 0){
                 gm_hint(action_vars[0], action_vars[1], solved_sb);
-                printf("hint\n");
                 continue;
             }
             if (strcmp(cmd, VALIDATE) == 0){

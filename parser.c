@@ -31,6 +31,10 @@ char* parse_cmd(int* args){
         arg = strtok(NULL, " \t\r\n");
         i++;
     }
+    while (i < 3){
+        args[i] = -1;
+        i++;
+    }
 
     return cmd;
 }
