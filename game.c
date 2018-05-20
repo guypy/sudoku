@@ -21,7 +21,6 @@ int gm_Initialize(){
 SudokuBoard* gm_Generate_solution(){
     SudokuBoard* sb = sb_CreateSudokuBoard(N,M);
     slvr_SolveBoard(sb);
-//    sb_print(sb);
     return sb;
 }
 
@@ -54,7 +53,7 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
  */
 int gm_set(int x, int y, int z, SudokuBoard* game_sb){
     int idx;
-    idx = (N*M)*y + x;
+    idx = (N*M)*(y - 1) + x - 1;
     if (game_sb->cells[idx]->fixed){
         printf("Error: cell is fixed\n");
         return 1;
@@ -79,7 +78,6 @@ void gm_hint(int x, int y, SudokuBoard* solved_sb){
 }
 
 SudokuBoard* gm_validate(SudokuBoard* game_sb, SudokuBoard* solved_sb){
-    setAllCellsFixed(game_sb);
     SudokuBoard* res = slvr_SolveBoard(game_sb);
     free(solved_sb);
     if (res == NULL)
@@ -91,12 +89,6 @@ SudokuBoard* gm_validate(SudokuBoard* game_sb, SudokuBoard* solved_sb){
     return NULL;
 }
 
-void setAllCellsFixed(SudokuBoard *game_sb) {
-    int i;
-    for (i = 0; i < BOARD_SIZE; i++) {
-        game_sb->cells[i]->fixed = 1;
-    }
-}
 
 int gm_restart(SudokuBoard* solved_sb, SudokuBoard* game_sb){
     sb_destroyBoard(solved_sb);
@@ -113,14 +105,12 @@ int gm_StartGame(){
     SudokuBoard* solved_sb = gm_Generate_solution();
     SudokuBoard* game_sb = sb_DeepCloneBoard(solved_sb);
     game_sb = gm_Generate_puzzle(game_sb, num_of_fixed);
-    sb_print(solved_sb);
-    sb_print(game_sb);
     while (1){
-        printf("in\n");
+        sb_print(game_sb);
         cmd = parse_cmd(action_vars);
         if (is_solved == 0) {
             if (strcmp(cmd, SET) == 0){
-                if (gm_set(action_vars[0], action_vars[1], action_vars[2], game_sb); == 2)
+                if (gm_set(action_vars[0], action_vars[1], action_vars[2], game_sb) == 2)
                     is_solved = 1;
                 continue;
             }

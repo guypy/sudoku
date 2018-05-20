@@ -61,13 +61,14 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
 }
 
 SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard){
-    return SolveBoardRec(sudokuBoard, 0);
+    int i = 0;
+    while (i < BOARD_SIZE && sudokuBoard->cells[i]->fixed){
+        ++i;
+    }
+    return SolveBoardRec(sudokuBoard, i);
 }
 
 SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
-//    sb_print(sudokuBoard);
-//    printf("ITERATION NUMBER %d\n\n", i);
-
     int j;
     if (i == -1) {
         return NULL;
