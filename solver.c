@@ -11,9 +11,9 @@ int getRandValue(int* possible_values, int num_of_pos_vals) {
 }
 
 int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard* sb){
-    int column = idx % (N*M); //0
-    int row = idx / (N*M);  //1
-    // mark values in the same column as impossible
+    int column = idx % (N*M);
+    int row = idx / (N*M);
+    /* mark values in the same column as impossible */
     int i, j, pos_val_count, value;
     for (i = 0; i < (N*M); ++i){
         value = sb->cells[i*(N*M) + column]->value;
@@ -21,14 +21,14 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
             possible_values[value - 1] = 0;
         }
     }
-    // mark values in the same row as impossible
+    /* mark values in the same row as impossible */
     for (i = 0; i < (N*M); ++i){
         value = sb->cells[row*(N*M) + i]->value;
         if (value > 0) {
             possible_values[value - 1] = 0;
         }
     }
-    // mark values in the same block as impossible
+    /* mark values in the same block as impossible */
     int column_block = column / M; //0
     int row_block = row / N; //0
     for (i = 0; i < N; ++i){
@@ -39,7 +39,7 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
             }
         }
     }
-    // change possible values to contain the actual possible values
+    /* change possible values to contain the actual possible values */
     pos_val_count = 0;
     for (i = 0; i < N*M; ++i){
         if (possible_values[i] == 1 && current->impossible_values[i] == 0){
@@ -70,7 +70,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
         return SolveBoardRec(sudokuBoard, --i);
     }
     if (current->value){
-        current->impossible_values[current->value - 1] = 1; // make value impossible
+        current->impossible_values[current->value - 1] = 1; /* make value impossible */
     }
     int* possible_values = calloc(N*M, sizeof(int));
     for (j = 0; j < N*M; ++j)

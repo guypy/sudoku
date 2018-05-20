@@ -26,13 +26,16 @@ SudokuBoard* gm_Generate_solution(){
 
 SudokuBoard* gm_Generate_puzzle(SudokuBoard solved_sb, int h){
     int i, x, y, idx;
-    SudokuBoard* game_sb = &solved_sb; // address of the copy of solved_sb
+    SudokuBoard* game_sb = &solved_sb; /* address of the copy of solved_sb */
     for (i = 0; i < h; ++i){
-        x = rand() % M; // random column
-        y = rand() % N; // random row
+        x = rand() % (N*M); /* random column */
+        y = rand() % (N*M); /* random row */
         idx = y*(N*M) + x;
-        if (!game_sb->cells[idx]->fixed){ // if cell is not yet fixed, make it fixed
+        if (!game_sb->cells[idx]->fixed){ /* if cell is not yet fixed, make it fixed */
             game_sb->cells[idx]->fixed = 1;
+        }
+        else{
+            i--;
         }
     }
     sb_RemoveUnfixedCells(game_sb);
@@ -40,7 +43,7 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard solved_sb, int h){
 }
 
 void gm_set(int x, int y, int z){
-
+    printf("asdf");
 }
 
 void gm_hint(int x, int y){
@@ -56,15 +59,18 @@ void gm_exit(){
 }
 
 int gm_StartGame(){
+    int solved_puzzle = 0;
     int num_of_fixed;
     char* cmd;
-    int action_vars[3] = {-1, -1, -1}; // array to pass to the parser which will update X,Y,Z accordingly
+    int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
     num_of_fixed = gm_Initialize();
     SudokuBoard* solved_sb = gm_Generate_solution();
     SudokuBoard* game_sb = gm_Generate_puzzle(*solved_sb, num_of_fixed);
-
-    while (SOLVED_PUZZLE == 0){
+    sb_print(game_sb);
+    while (solved_puzzle == 0){
+        printf("in\n");
         cmd = parse_cmd(action_vars);
+        printf("%s",cmd);
         if (cmd == SET){
             gm_set(action_vars[0], action_vars[1], action_vars[2]);
         }
@@ -80,8 +86,9 @@ int gm_StartGame(){
         if (cmd == EXIT){
 
         }
+        solved_puzzle = 1;
     }
-
+    printf("end");
     return 0;
 }
 

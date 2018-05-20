@@ -1,10 +1,12 @@
-//
-// Created by Yuval Barzam on 5/12/18.
-//
-
 #ifndef SUDOKU_GAME_H
 #define SUDOKU_GAME_H
 
-#define SOLVED_PUZZLE 0
+#define SET "set"
+#define HINT "hint"
+#define VALIDATE "validate"
+#define RESTART "restart"
+#define EXIT "exit"
+
+int gm_StartGame();
 
 #endif //SUDOKU_GAME_H

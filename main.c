@@ -4,10 +4,10 @@
 #include "solver.h"
 
 int main() {
-    SudokuBoard* sb = sb_CreateSudokuBoard(9,9);
-    slvr_SolveBoard(sb);
-    sb_print(sb);
-
+//    SudokuBoard* sb = sb_CreateSudokuBoard(9,9);
+//    slvr_SolveBoard(sb);
+//    sb_print(sb);
+    gm_StartGame();
 
     return 0;
 }

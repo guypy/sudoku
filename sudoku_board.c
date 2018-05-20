@@ -5,7 +5,7 @@
 SudokuBoard* sb_CreateSudokuBoard(int rows, int columns){
     int i, j;
     SudokuBoard* res = (SudokuBoard*) malloc(sizeof(SudokuBoard));
-    if (!res){ // allocation failed
+    if (!res){ /* allocation failed */
         return NULL;
     }
     res->rows = rows;

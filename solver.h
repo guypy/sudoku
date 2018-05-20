@@ -1,7 +1,3 @@
-//
-// Created by Yuval Barzam on 5/12/18.
-//
-
 #include "sudoku_board.h"
 
 #ifndef SUDOKU_SOLVER_H
