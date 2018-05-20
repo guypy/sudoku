@@ -136,6 +136,7 @@ int slvr_isValid(SudokuBoard* sudokuBoard, int idx, int value) {
             return 1;
         }
     }
+    free(possible_values);
     return 0;
 }
 
