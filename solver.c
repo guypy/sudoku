@@ -5,8 +5,12 @@
 #include "sudoku_board.h"
 #include "main_aux.h"
 
-int getRandValue(int* possible_values, int num_of_pos_vals) {
-    int val = possible_values[rand() % num_of_pos_vals];
+int getNextValue(int *possible_values, int num_of_pos_vals, int is_random) {
+    int val;
+    if (is_random)
+        val = possible_values[rand() % num_of_pos_vals];
+    else
+        val = possible_values[0];
     return val;
 }
 
@@ -60,15 +64,15 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
     return pos_val_count;
 }
 
-SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard){
+SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard, int is_random){
     int i = 0;
     while (i < BOARD_SIZE && sudokuBoard->cells[i]->fixed){
         ++i;
     }
-    return SolveBoardRec(sudokuBoard, i);
+    return SolveBoardRec(sudokuBoard, i, is_random);
 }
 
-SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
+SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     int j;
     if (i == -1) {
         return NULL;
@@ -78,7 +82,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
     }
     Cell* current= sudokuBoard->cells[i];
     if (current->fixed){
-        return SolveBoardRec(sudokuBoard, --i);
+        return SolveBoardRec(sudokuBoard, --i, is_random);
     }
     if (current->value){
         current->impossible_values[current->value - 1] = 1; /* make value impossible */
@@ -87,23 +91,22 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
     for (j = 0; j < N*M; ++j)
         possible_values[j] = 1;
     int num_of_pos_vals = calcPossibleValues(current, possible_values, i, sudokuBoard);
-    if (num_of_pos_vals == 0){
-        aux_empty_array(current->impossible_values);
-        current->value = 0;
-        return SolveBoardRec(sudokuBoard, --i);
-    }
-    if (num_of_pos_vals == 1){
-        current->value = possible_values[0];
-    }
-    else{
-        current->value = getRandValue(possible_values, num_of_pos_vals);
+    switch (num_of_pos_vals) {
+        case 0:
+            aux_empty_array(current->impossible_values);
+            current->value = 0;
+            return SolveBoardRec(sudokuBoard, --i, is_random);
+        case 1:
+            current->value = possible_values[0];
+        default:
+            current->value = getNextValue(possible_values, num_of_pos_vals, is_random);
     }
     ++i;
     while (i < BOARD_SIZE && sudokuBoard->cells[i]->fixed){
         ++i;
     }
     free(possible_values);
-    return SolveBoardRec(sudokuBoard, i);
+    return SolveBoardRec(sudokuBoard, i, is_random);
 
 }
 /*
