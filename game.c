@@ -20,7 +20,8 @@ int gm_Initialize(){
 
 SudokuBoard* gm_Generate_solution(){
     SudokuBoard* sb = sb_CreateSudokuBoard(N,M);
-    slvr_SolveBoard(sb);
+    int is_random = 1;
+    slvr_SolveBoard(sb, is_random);
     return sb;
 }
 
@@ -82,9 +83,10 @@ void gm_hint(int x, int y, SudokuBoard* solved_sb){
     printf("Hint: set cell to %d\n", hint);
 }
 
-SudokuBoard* gm_validate(SudokuBoard* game_sb, SudokuBoard* solved_sb){
-    SudokuBoard* res = slvr_SolveBoard(game_sb);
-    free(solved_sb);
+SudokuBoard* gm_validate(SudokuBoard* game_sb){
+    setAllCellsFixed(game_sb);
+    int is_random = 0;
+    SudokuBoard* res = slvr_SolveBoard(game_sb, is_random);
     if (res == NULL)
         printf("Validation failed: board is unsolvable\n");
     else {
@@ -94,6 +96,13 @@ SudokuBoard* gm_validate(SudokuBoard* game_sb, SudokuBoard* solved_sb){
     return NULL;
 }
 
+void setAllCellsFixed(SudokuBoard* game_sb) {
+    int i;
+    for (i=0; i < BOARD_SIZE; i++) {
+        if (game_sb->cells[i]->value != 0)
+            game_sb->cells[i]->fixed = 1;
+    }
+}
 
 int gm_restart(SudokuBoard* solved_sb, SudokuBoard* game_sb){
     sb_destroyBoard(solved_sb);
@@ -125,11 +134,20 @@ int gm_StartGame(){
                 continue;
             }
             if (strcmp(cmd, VALIDATE) == 0){
-                solved_sb = gm_validate(sb_DeepCloneBoard(game_sb), solved_sb);
-                sb_print(solved_sb);
-                printf("validate\n");
+                solved_sb = gm_validate(sb_DeepCloneBoard(game_sb));
+                if (solved_sb == NULL){
+                    free(solved_sb);
+                    solved_sb = sb_CreateSudokuBoard(N, M);
+                    is_solved = 1;
+                }else {
+                    sb_print(solved_sb);
+                }
                 continue;
             }
+        }
+        if (strcmp(cmd, "rosebud") == 0) {
+            sb_print(solved_sb);
+            continue;
         }
         if (strcmp(cmd, RESTART) == 0){
             return gm_restart(solved_sb, game_sb);
@@ -138,7 +156,7 @@ int gm_StartGame(){
             printf("exit\n");
             exit(1);
         }
-        printf("ERROR");
+        printf("Error: invalid command\n");
 
     }
     printf("end");
