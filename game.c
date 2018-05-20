@@ -83,7 +83,7 @@ void gm_hint(int x, int y, SudokuBoard* solved_sb){
         printf("Error: invalid command\n");
         return;
     }
-    hint = solved_sb->cells[N*M*(y + 1) + (x + 1)]->value;
+    hint = solved_sb->cells[N*M*(y - 1) + (x - 1)]->value;
     printf("Hint: set cell to %d\n", hint);
 }
 
