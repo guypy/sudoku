@@ -60,4 +60,18 @@ SudokuBoard* sb_DeepCloneBoard(SudokuBoard* template_sb){
     return new_sb;
 }
 
+/*
+ * This functions checks if the sudoku board is full, i.e there are no cells with value '0'.
+ * @return: 1 if full, 0 if not full
+ */
+int sb_IsFull(SudokuBoard* sb){
+    int i;
+    for (i = 0; i < BOARD_SIZE; ++i){
+        if (sb->cells[i]->value == 0){
+            return 0;
+        }
+    }
+    return 1;
+}
+
 
