@@ -6,9 +6,7 @@
 #include "game.h"
 
 int main() {
-//    SudokuBoard* sb = sb_CreateSudokuBoard(9,9);
-//    slvr_SolveBoard(sb);
-//    sb_print(sb);
+    srand(3);
     gm_StartGame();
 
     return 0;

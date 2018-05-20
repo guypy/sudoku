@@ -7,14 +7,13 @@
 int prs_ReadInt(){
     int num;
     scanf("%d", &num);
+    getchar();
     return num;
 }
 
 char* parse_cmd(int* args){
     char* cmd_str = malloc(1024 * sizeof(char));
     char* cmd;
-    int c;
-    while ( (c = getchar()) != EOF && c != '\n') { }
     fgets(cmd_str, 1024, stdin);
     cmd = strtok(cmd_str, " \t\r\n");
     char* arg = strtok(NULL, " \t\r\n");
