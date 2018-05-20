@@ -6,7 +6,8 @@
 #include "game.h"
 
 int main(int p, char *argv[]) {
-    unsigned int seed = *argv[1] - '0';
+    char * c =argv[1];
+    unsigned int seed = atoi(argv[1]);
     srand(seed);
     gm_StartGame();
 

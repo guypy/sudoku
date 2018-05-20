@@ -28,7 +28,11 @@ void sb_print(SudokuBoard* sb) {
             printf("| ");
         }
         if (sb->cells[i]->value) {
-            printf(".%d ", sb->cells[i]->value);
+            if (sb->cells[i]->fixed)
+                printf(".");
+            else
+                printf(" ");
+            printf("%d ", sb->cells[i]->value);
         } else {
             printf("   ");
         }
