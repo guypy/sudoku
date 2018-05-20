@@ -13,18 +13,21 @@ int prs_ReadInt(){
 
 char* parse_cmd(int* args){
     char* cmd_str = malloc(1024 * sizeof(char));
-    char* cmd;
+    char* cmd = NULL;
+    char* arg;
+    int i = 0;
     if (!cmd_str){ /* allocation failed */
         printf("Error: %s has failed\n", "parse_cmd");
         exit(1);
     }
-    fgets(cmd_str, 1024, stdin);
-    cmd = strtok(cmd_str, " \t\r\n");
-    char* arg = strtok(NULL, " \t\r\n");
-    int i = 0;
+    while (cmd == NULL) {
+        fgets(cmd_str, 1024, stdin);
+        cmd = strtok(cmd_str, " \t\r\n");
+    }
+    arg = strtok(NULL, " \t\r\n");
+
     while (arg != NULL) {
         args[i] = (int) *arg - '0';
-        printf("%d\n", args[i]);
         arg = strtok(NULL, " \t\r\n");
         i++;
     }

@@ -80,9 +80,10 @@ void gm_hint(int x, int y, SudokuBoard* solved_sb){
 }
 
 SudokuBoard* gm_validate(SudokuBoard* game_sb){
-    setAllCellsFixed(game_sb);
     int is_random = 0;
-    SudokuBoard* res = slvr_SolveBoard(game_sb, is_random);
+    SudokuBoard* res;
+    setAllCellsFixed(game_sb);
+    res = slvr_SolveBoard(game_sb, is_random);
     if (res == NULL)
         printf("Validation failed: board is unsolvable\n");
     else {
@@ -111,9 +112,9 @@ int gm_StartGame(){
     int num_of_fixed;
     char* cmd;
     int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
-    num_of_fixed = gm_Initialize();
     SudokuBoard* solved_sb = gm_Generate_solution();
     SudokuBoard* game_sb = sb_DeepCloneBoard(solved_sb);
+    num_of_fixed = gm_Initialize();
     game_sb = gm_Generate_puzzle(game_sb, num_of_fixed);
     while (1){
         sb_print(game_sb);
@@ -135,8 +136,6 @@ int gm_StartGame(){
                     free(solved_sb);
                     solved_sb = sb_CreateSudokuBoard(N, M);
                     is_solved = 1;
-                }else {
-                    sb_print(solved_sb);
                 }
                 continue;
             }
@@ -149,7 +148,6 @@ int gm_StartGame(){
             return gm_restart(solved_sb, game_sb);
         }
         if (strcmp(cmd, EXIT) == 0){
-            printf("exit\n");
             exit(1);
         }
         printf("Error: invalid command\n");

@@ -25,4 +25,4 @@ SudokuBoard* sb_DeepCloneBoard(SudokuBoard* template_sb);
 int sb_IsFull(SudokuBoard* sb);
 
 
-#endif //SUDOKU_SUDOKU_BOARD_H
+#endif

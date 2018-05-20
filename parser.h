@@ -4,4 +4,4 @@
 int prs_ReadInt();
 char* parse_cmd(int* args);
 
-#endif //SUDOKU_PARSER_H
+#endif
