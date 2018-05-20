@@ -60,4 +60,17 @@ SudokuBoard* sb_DeepCloneBoard(SudokuBoard* template_sb){
     return new_sb;
 }
 
+void destroyCell(Cell* c) {
+    free(c);
+}
+
+void sb_destroyBoard(SudokuBoard* sb) {
+    int i = 0;
+    for (i = 0; i < BOARD_SIZE; i++) {
+        destroyCell(sb->cells[i]);
+    }
+    free(sb);
+}
+
+
 

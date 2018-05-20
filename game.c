@@ -6,6 +6,8 @@
 #include "sudoku_board.h"
 #include "solver.h"
 
+void setAllCellsFixed(SudokuBoard *game_sb);
+
 int gm_Initialize(){
     int num_of_fixed;
     printf("Please enter the number of cells to fill [0-%d]:\n", BOARD_SIZE - 1);
@@ -45,7 +47,7 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
     return game_sb;
 }
 
-void gm_set(int x, int y, int z){
+int gm_set(int x, int y, int z){
     printf("asdf");
 }
 
@@ -54,17 +56,34 @@ void gm_hint(int x, int y, SudokuBoard* solved_sb){
     printf("Hint: set cell to %d\n", hint);
 }
 
-void gm_validate(){
+SudokuBoard* gm_validate(SudokuBoard* game_sb, SudokuBoard* solved_sb){
+    setAllCellsFixed(game_sb);
+    SudokuBoard* res = slvr_SolveBoard(game_sb);
+    free(solved_sb);
+    if (res == NULL)
+        printf("Validation failed: board is unsolvable\n");
+    else {
+        printf("Validation passed: board is solvable\n");
+        return res;
+    }
+    return NULL;
 }
 
-void gm_restart(){
+void setAllCellsFixed(SudokuBoard *game_sb) {
+    int i;
+    for (i = 0; i < BOARD_SIZE; i++) {
+        game_sb->cells[i]->fixed = 1;
+    }
 }
 
-void gm_exit(){
+int gm_restart(SudokuBoard* solved_sb, SudokuBoard* game_sb){
+    sb_destroyBoard(solved_sb);
+    sb_destroyBoard(game_sb);
+    return gm_StartGame();
 }
 
 int gm_StartGame(){
-    int solved_puzzle = 0;
+    int is_solved = 0;
     int num_of_fixed;
     char* cmd;
     int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
@@ -74,27 +93,36 @@ int gm_StartGame(){
     game_sb = gm_Generate_puzzle(game_sb, num_of_fixed);
     sb_print(solved_sb);
     sb_print(game_sb);
-    while (solved_puzzle == 0){
+    while (1){
         printf("in\n");
         cmd = parse_cmd(action_vars);
-        if (strcmp(cmd, SET) == 0){
-            gm_set(action_vars[0], action_vars[1], action_vars[2]);
-        }
-        if (strcmp(cmd, HINT) == 0){
-            gm_hint(action_vars[0], action_vars[1], solved_sb);
-            printf("hint\n");
-        }
-        if (strcmp(cmd, VALIDATE) == 0){
-            printf("validate\n");
+        if (is_solved == 0) {
+            if (strcmp(cmd, SET) == 0){
+                if (gm_set(action_vars[0], action_vars[1], action_vars[2]) == 2)
+                    is_solved = 1;
+                continue;
+            }
+            if (strcmp(cmd, HINT) == 0){
+                gm_hint(action_vars[0], action_vars[1], solved_sb);
+                printf("hint\n");
+                continue;
+            }
+            if (strcmp(cmd, VALIDATE) == 0){
+                solved_sb = gm_validate(sb_DeepCloneBoard(game_sb), solved_sb);
+                sb_print(solved_sb);
+                printf("validate\n");
+                continue;
+            }
         }
         if (strcmp(cmd, RESTART) == 0){
-            printf("restart\n");
+            return gm_restart(solved_sb, game_sb);
         }
         if (strcmp(cmd, EXIT) == 0){
             printf("exit\n");
-
+            exit(1);
         }
-        solved_puzzle = 1;
+        printf("ERROR");
+
     }
     printf("end");
     return 0;
