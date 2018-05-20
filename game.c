@@ -25,9 +25,11 @@ SudokuBoard* gm_Generate_solution(){
     return sb;
 }
 
-SudokuBoard* gm_Generate_puzzle(SudokuBoard solved_sb, int h){
+/*
+ * This function receives a pointer to a game board, selects h fixed values within it, and deletes the remaining values
+ */
+SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
     int i, x, y, idx;
-    SudokuBoard* game_sb = &solved_sb; /* address of the copy of solved_sb */
     for (i = 0; i < h; ++i){
         x = rand() % (N*M); /* random column */
         y = rand() % (N*M); /* random row */
@@ -68,7 +70,9 @@ int gm_StartGame(){
     int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
     num_of_fixed = gm_Initialize();
     SudokuBoard* solved_sb = gm_Generate_solution();
-    SudokuBoard* game_sb = gm_Generate_puzzle(*solved_sb, num_of_fixed);
+    SudokuBoard* game_sb = sb_DeepCloneBoard(solved_sb);
+    game_sb = gm_Generate_puzzle(game_sb, num_of_fixed);
+    sb_print(solved_sb);
     sb_print(game_sb);
     while (solved_puzzle == 0){
         printf("in\n");

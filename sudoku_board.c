@@ -45,3 +45,19 @@ void sb_RemoveUnfixedCells(SudokuBoard* sb){
         }
     }
 }
+
+SudokuBoard* sb_DeepCloneBoard(SudokuBoard* template_sb){
+    int i,j;
+    SudokuBoard* new_sb = sb_CreateSudokuBoard(template_sb->rows, template_sb->columns);
+    for (i = 0; i < BOARD_SIZE; ++i){
+        new_sb->cells[i]->value = template_sb->cells[i]->value;
+        new_sb->cells[i]->fixed = template_sb->cells[i]->fixed;
+        /* clone impossible values array of cell */
+        for (j = 0; j < (N*M); ++j){
+            new_sb->cells[i]->impossible_values[j] = template_sb->cells[i]->impossible_values[j];
+        }
+    }
+    return new_sb;
+}
+
+
