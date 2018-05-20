@@ -11,4 +11,4 @@
 int gm_StartGame();
 void setAllCellsFixed(SudokuBoard *game_sb);
 
-#endif //SUDOKU_GAME_H
+#endif

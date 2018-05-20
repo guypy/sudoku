@@ -3,7 +3,7 @@
 #include "sudoku_board.h"
 
 SudokuBoard* sb_CreateSudokuBoard(int rows, int columns){
-    int i, j;
+    int i;
     SudokuBoard* res = (SudokuBoard*) malloc(sizeof(SudokuBoard));
     if (!res){ /* allocation failed */
         return NULL;

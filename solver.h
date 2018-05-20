@@ -10,4 +10,4 @@ int checkBlock(SudokuBoard* sudokuBoard, int i, int j);
 int checkColumn(SudokuBoard* sudokuBoard, int i, int j);
 int checkRow(SudokuBoard* sudokuBoard, int i, int j);
 
-#endif //SUDOKU_SOLVER_H
+#endif
