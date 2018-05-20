@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "sudoku_board.h"
 #include "solver.h"
+#include "sudoku_board.h"
 
 int gm_Initialize(){
     int num_of_fixed;
@@ -54,13 +54,18 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
  */
 int gm_set(int x, int y, int z, SudokuBoard* game_sb){
     int idx;
-    idx = (N*M)*y + x;
+    idx = (N*M)*(y - 1) + (x - 1);
     if (game_sb->cells[idx]->fixed){
         printf("Error: cell is fixed\n");
         return 1;
     }
     if (slvr_isValid(game_sb, idx, z)){
         game_sb->cells[idx]->value = z;
+        if (z == 0){ /* clearing a cell */
+            game_sb->cells[idx]->fixed = 0;
+        } else{
+            game_sb->cells[idx]->fixed = 1;
+        }
     }
     else{
         printf("Error: value is invalid\n");
@@ -120,8 +125,9 @@ int gm_StartGame(){
         cmd = parse_cmd(action_vars);
         if (is_solved == 0) {
             if (strcmp(cmd, SET) == 0){
-                if (gm_set(action_vars[0], action_vars[1], action_vars[2], game_sb); == 2)
+                if (gm_set(action_vars[0], action_vars[1], action_vars[2], game_sb) == 2);
                     is_solved = 1;
+                sb_print(game_sb);
                 continue;
             }
             if (strcmp(cmd, HINT) == 0){

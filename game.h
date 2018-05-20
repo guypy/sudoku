@@ -6,8 +6,9 @@
 #define VALIDATE  "validate"
 #define RESTART  "restart"
 #define EXIT  "exit"
-#define SOLVED_PUZZLE 0
+#include "sudoku_board.h"
 
 int gm_StartGame();
+void setAllCellsFixed(SudokuBoard *game_sb);
 
 #endif //SUDOKU_GAME_H
