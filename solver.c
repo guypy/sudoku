@@ -55,8 +55,8 @@ SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard){
 }
 
 SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i) {
-    sb_print(sudokuBoard);
-    printf("ITERATION NUMBER %d\n\n", i);
+//    sb_print(sudokuBoard);
+//    printf("ITERATION NUMBER %d\n\n", i);
 
     int j;
     if (i == -1) {

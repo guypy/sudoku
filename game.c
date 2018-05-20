@@ -2,6 +2,7 @@
 #include "parser.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "sudoku_board.h"
 #include "solver.h"
 
@@ -20,7 +21,7 @@ int gm_Initialize(){
 SudokuBoard* gm_Generate_solution(){
     SudokuBoard* sb = sb_CreateSudokuBoard(N,M);
     slvr_SolveBoard(sb);
-    sb_print(sb);
+//    sb_print(sb);
     return sb;
 }
 
@@ -62,24 +63,25 @@ int gm_StartGame(){
     num_of_fixed = gm_Initialize();
     SudokuBoard* solved_sb = gm_Generate_solution();
     SudokuBoard* game_sb = gm_Generate_puzzle(*solved_sb, num_of_fixed);
-
     while (SOLVED_PUZZLE == 0){
         cmd = parse_cmd(action_vars);
-        if (cmd == SET){
+        if (strcmp(cmd, SET) == 0){
             gm_set(action_vars[0], action_vars[1], action_vars[2]);
         }
-        if (cmd == HINT){
+        if (strcmp(cmd, HINT) == 0){
+            printf("hint\n");
+        }
+        if (strcmp(cmd, VALIDATE) == 0){
+            printf("validate\n");
+        }
+        if (strcmp(cmd, RESTART) == 0){
+            printf("restart\n");
+        }
+        if (strcmp(cmd, EXIT) == 0){
+            printf("exit\n");
 
         }
-        if (cmd == VALIDATE){
-
-        }
-        if (cmd == RESTART){
-
-        }
-        if (cmd == EXIT){
-
-        }
+        return 3;
     }
 
     return 0;
