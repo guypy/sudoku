@@ -47,7 +47,9 @@ void gm_set(int x, int y, int z){
     printf("asdf");
 }
 
-void gm_hint(int x, int y){
+void gm_hint(int x, int y, SudokuBoard* solved_sb){
+    int hint = solved_sb->cells[N*M*y + x]->value;
+    printf("Hint: set cell to %d\n", hint);
 }
 
 void gm_validate(){
@@ -75,6 +77,7 @@ int gm_StartGame(){
             gm_set(action_vars[0], action_vars[1], action_vars[2]);
         }
         if (strcmp(cmd, HINT) == 0){
+            gm_hint(action_vars[0], action_vars[1], solved_sb);
             printf("hint\n");
         }
         if (strcmp(cmd, VALIDATE) == 0){
