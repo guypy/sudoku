@@ -6,12 +6,17 @@ SudokuBoard* sb_CreateSudokuBoard(int rows, int columns){
     int i, j;
     SudokuBoard* res = (SudokuBoard*) malloc(sizeof(SudokuBoard));
     if (!res){ /* allocation failed */
-        return NULL;
+        printf("Error: %s has failed\n", "sb_CreateSudokuBoard");
+        exit(1);
     }
     res->rows = rows;
     res->columns = columns;
     for (i = 0; i < BOARD_SIZE; ++i){
         res->cells[i] = (Cell*)calloc(1, sizeof(Cell));
+        if(!res->cells[i]){ /* allocation failed */
+            printf("Error: %s has failed\n", "sb_CreateSudokuBoard");
+            exit(1);
+        }
     }
     return res;
 }

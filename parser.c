@@ -14,6 +14,10 @@ int prs_ReadInt(){
 char* parse_cmd(int* args){
     char* cmd_str = malloc(1024 * sizeof(char));
     char* cmd;
+    if (!cmd_str){ /* allocation failed */
+        printf("Error: %s has failed\n", "parse_cmd");
+        exit(1);
+    }
     fgets(cmd_str, 1024, stdin);
     cmd = strtok(cmd_str, " \t\r\n");
     char* arg = strtok(NULL, " \t\r\n");
