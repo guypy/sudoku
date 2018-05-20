@@ -120,8 +120,10 @@ int slvr_isValid(SudokuBoard* sudokuBoard, int idx, int value) {
         possible_values[j] = 1;
     Cell* current = sudokuBoard->cells[idx];
     calcPossibleValues(current, possible_values, idx, sudokuBoard);
-    if (possible_values[value - 1]){
-        return 1;
+    for (j = 0; j < (N*M); ++j){
+        if (possible_values[j] == value){
+            return 1;
+        }
     }
     return 0;
 }

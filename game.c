@@ -53,19 +53,15 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
  * @pre: x,y,z are legal values. 1 <= x,y <= N*M  0 <= z <= N*M
  */
 int gm_set(int x, int y, int z, SudokuBoard* game_sb){
-    int idx;
+    int idx, temp;
     idx = (N*M)*(y - 1) + (x - 1);
     if (game_sb->cells[idx]->fixed){
         printf("Error: cell is fixed\n");
         return 1;
     }
-    if (slvr_isValid(game_sb, idx, z)){
+    if (z == 0 || slvr_isValid(game_sb, idx, z)){
+        temp = slvr_isValid(game_sb, idx, z);
         game_sb->cells[idx]->value = z;
-        if (z == 0){ /* clearing a cell */
-            game_sb->cells[idx]->fixed = 0;
-        } else{
-            game_sb->cells[idx]->fixed = 1;
-        }
     }
     else{
         printf("Error: value is invalid\n");
