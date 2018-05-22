@@ -145,9 +145,12 @@ int gm_play(){
             }
             if (strcmp(cmd, VALIDATE) == 0){
                 sb_destroyBoard(solved_sb);
-                solved_sb = validate(sb_deepCloneBoard(game_sb));
-                if (solved_sb == NULL){
-                    solved_sb = sb_createSudokuBoard(N, M);
+                SudokuBoard* temp_sb = validate(sb_deepCloneBoard(game_sb));
+                if (temp_sb == NULL){
+                    free(temp_sb);
+                }else {
+                    free(solved_sb);
+                    solved_sb = temp_sb;
                 }
                 continue;
             }
