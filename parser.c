@@ -34,7 +34,7 @@ char* prsr_fetchCmd(int *args){
         fgets(cmd_str, 1024, stdin);
         cmdpt = strtok(cmd_str, " \t\r\n");
         if (feof(stdin)) {
-            cmd = EXIT;
+            strcpy(cmd, EXIT);
             return cmd;
         }
     }
