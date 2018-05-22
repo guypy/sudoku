@@ -63,7 +63,7 @@ int set(int x, int y, int z, SudokuBoard *game_sb){
         printf("Error: cell is fixed\n");
         return 1;
     }
-    if (z == 0 || slvr_isValid(game_sb, idx, z)){
+    if (z == 0 || game_sb->cells[idx]->value == z ||  slvr_isValid(game_sb, idx, z)){
         game_sb->cells[idx]->value = z;
     }
     else{

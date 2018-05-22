@@ -53,7 +53,7 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
             }
         }
     }
-    possible_values[current->value -1] = 1;
+
     /* change possible values to contain the actual possible values */
     num_of_pos_vals = 0;
     for (i = 0; i < N*M; ++i){
