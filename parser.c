@@ -31,14 +31,15 @@ char* prsr_fetchCmd(int *args){
     }
     if (feof(stdin)){
         strcpy(cmd, EXIT);
+        free(cmd_str);
         return cmd;
     }
     while (cmdpt == NULL) {
         fgets(cmd_str, 1024, stdin);
         cmdpt = strtok(cmd_str, " \t\r\n");
         if (cmdpt == NULL && feof(stdin)) {
-            printf("%s", cmdpt);
             strcpy(cmd, EXIT);
+            free(cmd_str);
             return cmd;
         }
     }
