@@ -101,6 +101,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
         case 0:
             aux_empty_array(currentCell->impossible_values);
             currentCell->value = 0;
+            free(possible_values);
             return SolveBoardRec(sudokuBoard, --i, is_random);
         case 1:
             currentCell->value = possible_values[0];
