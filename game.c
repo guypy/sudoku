@@ -29,11 +29,9 @@ SudokuBoard* generateSolution(){
  * This function receives a pointer to a game board, selects h fixed values within it, and deletes the remaining values
  */
 SudokuBoard* generatePuzzle(SudokuBoard *game_sb, int h){
-    int i, x, y, idx;
+    int i, idx;
     for (i = 0; i < h; ++i){
-        y = rand() % (N*M); /* random row */
-        x = rand() % (N*M); /* random column */
-        idx = y*(N*M) + x;
+        idx = rand() % (BOARD_SIZE); /* random row */
         if (!game_sb->cells[idx]->fixed){ /* if cell is not yet fixed, make it fixed */
             game_sb->cells[idx]->fixed = 1;
         }
