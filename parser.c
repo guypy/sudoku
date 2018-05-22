@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-int prs_ReadInt(){
+int prsr_readInt(){
     int num = -1;
     scanf("%d", &num);
     while (num < 0 || num > 80) {
@@ -16,14 +16,14 @@ int prs_ReadInt(){
     return num;
 }
 
-char* parse_cmd(int* args){
+char* prsr_fetchCmd(int *args){
     char* cmd_str = malloc(1024 * sizeof(char));
     char* cmdpt = NULL;
     char* cmd = malloc(1024 * sizeof(char));
     char* arg;
     int i = 0;
     if (!cmd_str){ /* allocation failed */
-        printf("Error: %s has failed\n", "parse_cmd");
+        printf("Error: %s has failed\n", "prsr_fetchCmd");
         exit(1);
     }
     while (cmdpt == NULL) {

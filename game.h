@@ -8,7 +8,7 @@
 #define EXIT  "exit"
 #include "sudoku_board.h"
 
-int gm_StartGame();
+int gm_play();
 void setAllCellsFixed(SudokuBoard *game_sb);
 
 #endif

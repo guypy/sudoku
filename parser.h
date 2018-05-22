@@ -1,7 +1,7 @@
 #ifndef SUDOKU_PARSER_H
 #define SUDOKU_PARSER_H
 
-int prs_ReadInt();
-char* parse_cmd(int* args);
+int prsr_readInt();
+char* prsr_fetchCmd(int *args);
 
 #endif

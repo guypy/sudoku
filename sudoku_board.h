@@ -17,12 +17,12 @@ typedef struct{
     Cell* cells[BOARD_SIZE];
 } SudokuBoard;
 
-SudokuBoard* sb_CreateSudokuBoard(int rows, int columns);
+SudokuBoard* sb_createSudokuBoard(int rows, int columns);
 void sb_print(SudokuBoard* sb);
-void sb_RemoveUnfixedCells(SudokuBoard* sb);
+void sb_removeUnfixedCells(SudokuBoard *sb);
 void sb_destroyBoard(SudokuBoard* sb);
-SudokuBoard* sb_DeepCloneBoard(SudokuBoard* template_sb);
-int sb_IsFull(SudokuBoard* sb);
+SudokuBoard* sb_deepCloneBoard(SudokuBoard *template_sb);
+int sb_isFull(SudokuBoard *sb);
 
 
 #endif

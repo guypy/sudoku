@@ -61,8 +61,6 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
             pos_val_count++;
         }
     }
-    for (i = pos_val_count; i < N*M; ++i)
-        possible_values[i] = 0;
     return pos_val_count;
 }
 
@@ -71,10 +69,10 @@ SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard, int is_random){
     while (i < BOARD_SIZE && sudokuBoard->cells[i]->fixed){
         ++i;
     }
-    return SolveBoardRec(sudokuBoard, i, is_random);
+    return solveBoardRec(sudokuBoard, i, is_random);
 }
 
-SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
+SudokuBoard* solveBoardRec(SudokuBoard *sudokuBoard, int i, int is_random) {
     int j, num_of_pos_vals;
     Cell* currentCell;
     int possible_values[N*M];
@@ -87,7 +85,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     }
     currentCell= sudokuBoard->cells[i];
     if (currentCell->fixed){
-        return SolveBoardRec(sudokuBoard, --i, is_random);
+        return solveBoardRec(sudokuBoard, --i, is_random);
     }
     if (currentCell->value){
         currentCell->impossible_values[currentCell->value - 1] = 1; /* make value impossible */
@@ -97,9 +95,9 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     num_of_pos_vals = calcPossibleValues(currentCell, &possible_values[0], i, sudokuBoard);
     switch (num_of_pos_vals) {
         case 0:
-            aux_empty_array(currentCell->impossible_values);
+            aux_emptyArray(currentCell->impossible_values);
             currentCell->value = 0;
-            return SolveBoardRec(sudokuBoard, --i, is_random);
+            return solveBoardRec(sudokuBoard, --i, is_random);
         case 1:
             currentCell->value = possible_values[0];
         default:
@@ -109,7 +107,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     while (i < BOARD_SIZE && sudokuBoard->cells[i]->fixed){
         ++i;
     }
-    return SolveBoardRec(sudokuBoard, i, is_random);
+    return solveBoardRec(sudokuBoard, i, is_random);
 
 }
 /*
@@ -117,14 +115,14 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
  * @return: 1 if valid is valid in cell idx, 0 otherwise.
  */
 int slvr_isValid(SudokuBoard* sudokuBoard, int idx, int value) {
-    int j;
+    int j, pos_val_count;
     Cell* currentCell;
     int possible_values[N*M];
     for (j = 0; j < N*M; ++j)
         possible_values[j] = 1;
     currentCell = sudokuBoard->cells[idx];
-    calcPossibleValues(currentCell, &possible_values[0], idx, sudokuBoard);
-    for (j = 0; j < (N*M); ++j){
+    pos_val_count = calcPossibleValues(currentCell, &possible_values[0], idx, sudokuBoard);
+    for (j = 0; j < pos_val_count; ++j){
         if (possible_values[j] == value){
             return 1;
         }

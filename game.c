@@ -6,20 +6,20 @@
 #include "solver.h"
 #include "sudoku_board.h"
 
-int gm_Initialize(){
+int initialize(){
     int num_of_fixed;
     printf("Please enter the number of cells to fill [0-%d]:\n", BOARD_SIZE - 1);
-    num_of_fixed = prs_ReadInt();
+    num_of_fixed = prsr_readInt();
     while (num_of_fixed < 0 || num_of_fixed >= BOARD_SIZE){
         printf("Error: Invalid number of cells to fill (should be between 0 and %d)\n", BOARD_SIZE - 1);
         printf("Please enter the number of cells to fill [0-%d]:\n", BOARD_SIZE - 1);
-        num_of_fixed = prs_ReadInt();
+        num_of_fixed = prsr_readInt();
     }
     return num_of_fixed;
 }
 
-SudokuBoard* gm_Generate_solution(){
-    SudokuBoard* sb = sb_CreateSudokuBoard(N,M);
+SudokuBoard* generateSolution(){
+    SudokuBoard* sb = sb_createSudokuBoard(N, M);
     int is_random = 1;
     slvr_SolveBoard(sb, is_random);
     return sb;
@@ -28,7 +28,7 @@ SudokuBoard* gm_Generate_solution(){
 /*
  * This function receives a pointer to a game board, selects h fixed values within it, and deletes the remaining values
  */
-SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
+SudokuBoard* generatePuzzle(SudokuBoard *game_sb, int h){
     int i, x, y, idx;
     for (i = 0; i < h; ++i){
         y = rand() % (N*M); /* random row */
@@ -41,7 +41,7 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
             i--;
         }
     }
-    sb_RemoveUnfixedCells(game_sb);
+    sb_removeUnfixedCells(game_sb);
     return game_sb;
 }
 
@@ -52,7 +52,7 @@ SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
  * If puzzle is solved, a message is printed out.
  * @pre: x,y,z are legal values. 1 <= x,y <= N*M  0 <= z <= N*M
  */
-int gm_set(int x, int y, int z, SudokuBoard* game_sb){
+int set(int x, int y, int z, SudokuBoard *game_sb){
     int idx;
     if (x == -1 || y == -1 || z == -1) {
         printf("Error: invalid command\n");
@@ -70,14 +70,14 @@ int gm_set(int x, int y, int z, SudokuBoard* game_sb){
         printf("Error: value is invalid\n");
         return 1;
     }
-    if (sb_IsFull(game_sb)){
+    if (sb_isFull(game_sb)){
         printf("Puzzle solved successfully\n");
         return 2;
     }
     return 0;
 }
 
-void gm_hint(int x, int y, SudokuBoard* solved_sb){
+void hint(int x, int y, SudokuBoard *solved_sb){
     int hint;
     if (x == -1 || y == -1){
         printf("Error: invalid command\n");
@@ -87,7 +87,7 @@ void gm_hint(int x, int y, SudokuBoard* solved_sb){
     printf("Hint: set cell to %d\n", hint);
 }
 
-SudokuBoard* gm_validate(SudokuBoard* cloned_game_sb){
+SudokuBoard* validate(SudokuBoard *cloned_game_sb){
     int is_random = 0;
     SudokuBoard* res;
     setAllCellsFixed(cloned_game_sb);
@@ -109,53 +109,49 @@ void setAllCellsFixed(SudokuBoard* game_sb) {
     }
 }
 
-int gm_restart(SudokuBoard* solved_sb, SudokuBoard* game_sb){
+int restart(SudokuBoard *solved_sb, SudokuBoard *game_sb){
     sb_destroyBoard(solved_sb);
     sb_destroyBoard(game_sb);
-    return gm_StartGame();
+    return gm_play();
 }
 
-int gm_StartGame(){
+int gm_play(){
     int is_solved = 0;
     int num_of_fixed;
     char* cmd = NULL;
     int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
-    SudokuBoard* solved_sb = gm_Generate_solution();
-    SudokuBoard* game_sb = sb_DeepCloneBoard(solved_sb);
-    num_of_fixed = gm_Initialize();
-    game_sb = gm_Generate_puzzle(game_sb, num_of_fixed);
+    SudokuBoard* solved_sb = generateSolution();
+    SudokuBoard* game_sb = sb_deepCloneBoard(solved_sb);
+    num_of_fixed = initialize();
+    game_sb = generatePuzzle(game_sb, num_of_fixed);
     while (1){
         sb_print(game_sb);
         if (cmd != NULL)
             free(cmd);
-        cmd = parse_cmd(action_vars);
+        cmd = prsr_fetchCmd(action_vars);
         if (is_solved == 0) {
             if (strcmp(cmd, SET) == 0){
-                if (gm_set(action_vars[0], action_vars[1], action_vars[2], game_sb) == 2)
+                if (set(action_vars[0], action_vars[1], action_vars[2], game_sb) == 2)
                     is_solved = 1;
                 continue;
             }
             if (strcmp(cmd, HINT) == 0){
-                gm_hint(action_vars[0], action_vars[1], solved_sb);
+                hint(action_vars[0], action_vars[1], solved_sb);
                 continue;
             }
             if (strcmp(cmd, VALIDATE) == 0){
                 sb_destroyBoard(solved_sb);
-                solved_sb = gm_validate(sb_DeepCloneBoard(game_sb));
+                solved_sb = validate(sb_deepCloneBoard(game_sb));
                 if (solved_sb == NULL){
-                    solved_sb = sb_CreateSudokuBoard(N, M);
+                    solved_sb = sb_createSudokuBoard(N, M);
                     is_solved = 1;
                 }
                 continue;
             }
         }
-        if (strcmp(cmd, "rosebud") == 0) {
-            sb_print(solved_sb);
-            continue;
-        }
         if (strcmp(cmd, RESTART) == 0){
             free(cmd);
-            return gm_restart(solved_sb, game_sb);
+            return restart(solved_sb, game_sb);
         }
         if (strcmp(cmd, EXIT) == 0){
             sb_destroyBoard(solved_sb);

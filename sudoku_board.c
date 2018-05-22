@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "sudoku_board.h"
 
-SudokuBoard* sb_CreateSudokuBoard(int rows, int columns){
+SudokuBoard* sb_createSudokuBoard(int rows, int columns){
     int i;
     SudokuBoard* res = (SudokuBoard*) malloc(sizeof(SudokuBoard));
     if (!res){ /* allocation failed */
-        printf("Error: %s has failed\n", "sb_CreateSudokuBoard");
+        printf("Error: %s has failed\n", "sb_createSudokuBoard");
         exit(1);
     }
     res->rows = rows;
@@ -14,7 +14,7 @@ SudokuBoard* sb_CreateSudokuBoard(int rows, int columns){
     for (i = 0; i < BOARD_SIZE; ++i){
         res->cells[i] = (Cell*)calloc(1, sizeof(Cell));
         if(!res->cells[i]){ /* allocation failed */
-            printf("Error: %s has failed\n", "sb_CreateSudokuBoard");
+            printf("Error: %s has failed\n", "sb_createSudokuBoard");
             exit(1);
         }
     }
@@ -46,7 +46,7 @@ void sb_print(SudokuBoard* sb) {
 
 }
 
-void sb_RemoveUnfixedCells(SudokuBoard* sb){
+void sb_removeUnfixedCells(SudokuBoard *sb){
     int i;
     for (i = 0; i < BOARD_SIZE; ++i){
         if (sb->cells[i]->fixed == 0){
@@ -55,9 +55,9 @@ void sb_RemoveUnfixedCells(SudokuBoard* sb){
     }
 }
 
-SudokuBoard* sb_DeepCloneBoard(SudokuBoard* template_sb){
+SudokuBoard* sb_deepCloneBoard(SudokuBoard *template_sb){
     int i,j;
-    SudokuBoard* new_sb = sb_CreateSudokuBoard(template_sb->rows, template_sb->columns);
+    SudokuBoard* new_sb = sb_createSudokuBoard(template_sb->rows, template_sb->columns);
     for (i = 0; i < BOARD_SIZE; ++i){
         new_sb->cells[i]->value = template_sb->cells[i]->value;
         new_sb->cells[i]->fixed = template_sb->cells[i]->fixed;
@@ -86,7 +86,7 @@ void sb_destroyBoard(SudokuBoard* sb) {
  * This functions checks if the sudoku board is full, i.e there are no cells with value '0'.
  * @return: 1 if full, 0 if not full
  */
-int sb_IsFull(SudokuBoard* sb){
+int sb_isFull(SudokuBoard *sb){
     int i;
     for (i = 0; i < BOARD_SIZE; ++i){
         if (sb->cells[i]->value == 0){

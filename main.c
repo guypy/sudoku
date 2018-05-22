@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     if (argc == 2)
         seed = atoi(argv[1]);
     srand(seed);
-    gm_StartGame();
+    gm_play();
 
     return 0;
 }
