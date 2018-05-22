@@ -89,10 +89,6 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     if (currentCell->value){
         currentCell->impossible_values[currentCell->value - 1] = 1; /* make value impossible */
     }
-    if (!possible_values){ /* allocation failed */
-        printf("Error: %s has failed\n", "SolveBoardRec");
-        exit(1);
-    }
     for (j = 0; j < N*M; ++j)
         possible_values[j] = 1;
     num_of_pos_vals = calcPossibleValues(currentCell, &possible_values[0], i, sudokuBoard);
