@@ -148,7 +148,6 @@ int gm_play(){
                 solved_sb = validate(sb_deepCloneBoard(game_sb));
                 if (solved_sb == NULL){
                     solved_sb = sb_createSudokuBoard(N, M);
-                    is_solved = 1;
                 }
                 continue;
             }
