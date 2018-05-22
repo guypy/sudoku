@@ -11,7 +11,7 @@ int initialize(){
     printf("Please enter the number of cells to fill [0-%d]:\n", BOARD_SIZE - 1);
     num_of_fixed = prsr_readInt();
     while (num_of_fixed < 0 || num_of_fixed >= BOARD_SIZE){
-        printf("Error: Invalid number of cells to fill (should be between 0 and %d)\n", BOARD_SIZE - 1);
+        printf("Error: invalid number of cells to fill (should be between 0 and %d)\n", BOARD_SIZE - 1);
         printf("Please enter the number of cells to fill [0-%d]:\n", BOARD_SIZE - 1);
         num_of_fixed = prsr_readInt();
     }
