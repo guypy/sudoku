@@ -132,9 +132,10 @@ int gm_play(){
         if (is_solved == 0) {
             if (strcmp(cmd, SET) == 0){
                 res = set(action_vars[0], action_vars[1], action_vars[2], game_sb);
-                if (res == 2)
+                if (res == 2) {
+                    sb_print(game_sb);
                     is_solved = 1;
-                else if (res == 0)
+                } else if (res == 0)
                     sb_print(game_sb);
                 continue;
             }

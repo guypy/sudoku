@@ -13,7 +13,7 @@ int prsr_readInt(){
             exit(1);
         }
         if (num < 0 || num > 80)
-            printf("Error: Invalid number of cells to fill (should be between 0 and 80)\n");
+            return -1;
     }
 
     return num;
