@@ -75,7 +75,7 @@ SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard, int is_random){
 SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     int j, num_of_pos_vals;
     Cell* currentCell;
-    int* possible_values;
+    int possible_values[N*M];
     if (i == -1) {
         return NULL;
     }
@@ -89,30 +89,29 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     if (currentCell->value){
         currentCell->impossible_values[currentCell->value - 1] = 1; /* make value impossible */
     }
-    possible_values = calloc(N*M, sizeof(int));
+//    possible_values = calloc(N*M, sizeof(int));
     if (!possible_values){ /* allocation failed */
         printf("Error: %s has failed\n", "SolveBoardRec");
         exit(1);
     }
     for (j = 0; j < N*M; ++j)
         possible_values[j] = 1;
-    num_of_pos_vals = calcPossibleValues(currentCell, possible_values, i, sudokuBoard);
+    num_of_pos_vals = calcPossibleValues(currentCell, &possible_values[0], i, sudokuBoard);
     switch (num_of_pos_vals) {
         case 0:
             aux_empty_array(currentCell->impossible_values);
             currentCell->value = 0;
-            free(possible_values);
             return SolveBoardRec(sudokuBoard, --i, is_random);
         case 1:
             currentCell->value = possible_values[0];
         default:
-            currentCell->value = getNextValue(possible_values, num_of_pos_vals, is_random);
+            currentCell->value = getNextValue(&possible_values[0], num_of_pos_vals, is_random);
     }
     ++i;
     while (i < BOARD_SIZE && sudokuBoard->cells[i]->fixed){
         ++i;
     }
-    free(possible_values);
+//    free(possible_values);
     return SolveBoardRec(sudokuBoard, i, is_random);
 
 }
