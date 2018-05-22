@@ -134,6 +134,7 @@ int slvr_isValid(SudokuBoard* sudokuBoard, int idx, int value) {
     calcPossibleValues(currentCell, possible_values, idx, sudokuBoard);
     for (j = 0; j < (N*M); ++j){
         if (possible_values[j] == value){
+            free(possible_values);
             return 1;
         }
     }
