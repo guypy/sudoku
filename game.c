@@ -140,7 +140,7 @@ int gm_StartGame(){
                 continue;
             }
             if (strcmp(cmd, VALIDATE) == 0){
-                free(solved_sb);
+                sb_destroyBoard(solved_sb);
                 solved_sb = gm_validate(sb_DeepCloneBoard(game_sb));
                 if (solved_sb == NULL){
                     solved_sb = sb_CreateSudokuBoard(N, M);
