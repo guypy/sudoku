@@ -124,6 +124,7 @@ int gm_play(){
     SudokuBoard* game_sb = sb_deepCloneBoard(solved_sb);
     num_of_fixed = initialize();
     game_sb = generatePuzzle(game_sb, num_of_fixed);
+    sb_print(game_sb);
     while (1){
         if (cmd != NULL)
             free(cmd);
