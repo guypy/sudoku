@@ -125,7 +125,6 @@ int gm_play(){
     num_of_fixed = initialize();
     game_sb = generatePuzzle(game_sb, num_of_fixed);
     while (1){
-
         if (cmd != NULL)
             free(cmd);
         cmd = prsr_fetchCmd(action_vars);
@@ -134,7 +133,7 @@ int gm_play(){
                 res = set(action_vars[0], action_vars[1], action_vars[2], game_sb);
                 if (res == 2)
                     is_solved = 1;
-                else if (res == 1)
+                else if (res == 0)
                     sb_print(game_sb);
                 continue;
             }
