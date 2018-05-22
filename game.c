@@ -121,7 +121,7 @@ int gm_play(){
     int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
     SudokuBoard* solved_sb = generateSolution();
     SudokuBoard* game_sb = sb_deepCloneBoard(solved_sb);
-    SudokuBoard* temp_sb
+    SudokuBoard* temp_sb;
     num_of_fixed = initialize();
     game_sb = generatePuzzle(game_sb, num_of_fixed);
     sb_print(game_sb);
