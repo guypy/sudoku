@@ -29,7 +29,10 @@ char* prsr_fetchCmd(int *args){
         printf("Error: %s has failed\n", "prsr_fetchCmd");
         exit(1);
     }
-
+    if (feof(stdin)){
+        strcpy(cmd, EXIT);
+        return cmd;
+    }
     while (cmdpt == NULL) {
         fgets(cmd_str, 1024, stdin);
         cmdpt = strtok(cmd_str, " \t\r\n");
