@@ -30,7 +30,7 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
     int column_block = column / M;
     int row_block = row / N;
     /* mark values in the same column as impossible */
-    int i, j, pos_val_count, value;
+    int i, j, num_of_pos_vals, value;
     for (i = 0; i < (N*M); ++i){
         value = sb->cells[i*(N*M) + column]->value;
         if (value > 0) {
@@ -54,14 +54,14 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
         }
     }
     /* change possible values to contain the actual possible values */
-    pos_val_count = 0;
+    num_of_pos_vals = 0;
     for (i = 0; i < N*M; ++i){
         if (possible_values[i] == 1 && current->impossible_values[i] == 0){
-            possible_values[pos_val_count] = i + 1;
-            pos_val_count++;
+            possible_values[num_of_pos_vals] = i + 1;
+            num_of_pos_vals++;
         }
     }
-    return pos_val_count;
+    return num_of_pos_vals;
 }
 
 SudokuBoard* slvr_SolveBoard(SudokuBoard* sudokuBoard, int is_random){
@@ -100,8 +100,10 @@ SudokuBoard* solveBoardRec(SudokuBoard *sudokuBoard, int i, int is_random) {
             return solveBoardRec(sudokuBoard, --i, is_random);
         case 1:
             currentCell->value = possible_values[0];
+            break;
         default:
             currentCell->value = getNextValue(&possible_values[0], num_of_pos_vals, is_random);
+            break;
     }
     ++i;
     while (i < BOARD_SIZE && sudokuBoard->cells[i]->fixed){
