@@ -117,7 +117,7 @@ int restart(SudokuBoard *solved_sb, SudokuBoard *game_sb){
 
 int gm_play(){
     int is_solved = 0;
-    int num_of_fixed;
+    int num_of_fixed, res;
     char* cmd = NULL;
     int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
     SudokuBoard* solved_sb = generateSolution();
@@ -125,14 +125,17 @@ int gm_play(){
     num_of_fixed = initialize();
     game_sb = generatePuzzle(game_sb, num_of_fixed);
     while (1){
-        sb_print(game_sb);
+
         if (cmd != NULL)
             free(cmd);
         cmd = prsr_fetchCmd(action_vars);
         if (is_solved == 0) {
             if (strcmp(cmd, SET) == 0){
-                if (set(action_vars[0], action_vars[1], action_vars[2], game_sb) == 2)
+                res = set(action_vars[0], action_vars[1], action_vars[2], game_sb);
+                if (res == 2)
                     is_solved = 1;
+                else if (res == 1)
+                    sb_print(game_sb);
                 continue;
             }
             if (strcmp(cmd, HINT) == 0){
