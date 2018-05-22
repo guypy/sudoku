@@ -146,9 +146,7 @@ int gm_play(){
             }
             if (strcmp(cmd, VALIDATE) == 0){
                 temp_sb = validate(sb_deepCloneBoard(game_sb));
-                if (temp_sb == NULL){
-                    sb_destroyBoard(temp_sb);
-                } else {
+                if (temp_sb != NULL){
                     sb_destroyBoard(solved_sb);
                     solved_sb = temp_sb;
                 }
