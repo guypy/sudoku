@@ -33,11 +33,12 @@ char* prsr_fetchCmd(int *args){
     while (cmdpt == NULL) {
         fgets(cmd_str, 1024, stdin);
         cmdpt = strtok(cmd_str, " \t\r\n");
-        if (feof(stdin)) {
+        if (feof(stdin) && cmdpt == NULL) {
             strcpy(cmd, EXIT);
             return cmd;
         }
     }
+
     strcpy(cmd, cmdpt);
 
     arg = strtok(NULL, " \t\r\n");

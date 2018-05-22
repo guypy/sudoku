@@ -161,6 +161,7 @@ int gm_play(){
             sb_destroyBoard(solved_sb);
             sb_destroyBoard(game_sb);
             free(cmd);
+            printf("Exiting...");
             exit(1);
         }
         printf("Error: invalid command\n");
