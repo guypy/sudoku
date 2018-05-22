@@ -61,6 +61,8 @@ int calcPossibleValues(Cell* current, int *possible_values, int idx, SudokuBoard
             pos_val_count++;
         }
     }
+    for (i = pos_val_count; i < N*M; ++i)
+        possible_values[i] = 0;
     return pos_val_count;
 }
 
@@ -117,22 +119,16 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
 int slvr_isValid(SudokuBoard* sudokuBoard, int idx, int value) {
     int j;
     Cell* currentCell;
-    int* possible_values = calloc(N*M, sizeof(int));
-    if (!possible_values){ /* allocation failed */
-        printf("Error: %s has failed\n", "slvr_isValid");
-        exit(1);
-    }
+    int possible_values[N*M];
     for (j = 0; j < N*M; ++j)
         possible_values[j] = 1;
     currentCell = sudokuBoard->cells[idx];
-    calcPossibleValues(currentCell, possible_values, idx, sudokuBoard);
+    calcPossibleValues(currentCell, &possible_values[0], idx, sudokuBoard);
     for (j = 0; j < (N*M); ++j){
         if (possible_values[j] == value){
-            free(possible_values);
             return 1;
         }
     }
-    free(possible_values);
     return 0;
 }
 
