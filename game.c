@@ -71,7 +71,6 @@ int set(int x, int y, int z, SudokuBoard *game_sb){
         return 1;
     }
     if (sb_isFull(game_sb)){
-        printf("Puzzle solved successfully\n");
         return 2;
     }
     return 0;
@@ -134,6 +133,7 @@ int gm_play(){
                 res = set(action_vars[0], action_vars[1], action_vars[2], game_sb);
                 if (res == 2) {
                     sb_print(game_sb);
+                    printf("Puzzle solved successfully\n");
                     is_solved = 1;
                 } else if (res == 0)
                     sb_print(game_sb);
