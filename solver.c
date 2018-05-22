@@ -77,6 +77,7 @@ SudokuBoard* SolveBoardRec(SudokuBoard* sudokuBoard, int i, int is_random) {
     Cell* currentCell;
     int possible_values[N*M];
     if (i == -1) {
+        printf("asdfkjasldjflkasdf");
         sb_destroyBoard(sudokuBoard);
         return NULL;
     }
