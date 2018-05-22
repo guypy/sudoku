@@ -7,7 +7,7 @@
 #include "sudoku_board.h"
 
 int initialize(){
-    int num_of_fixed;
+    int num_of_fixed = 0;
     printf("Please enter the number of cells to fill [0-%d]:\n", BOARD_SIZE - 1);
     num_of_fixed = prsr_readInt();
     while (num_of_fixed < 0 || num_of_fixed >= BOARD_SIZE){
@@ -29,7 +29,7 @@ SudokuBoard* generateSolution(){
  * This function receives a pointer to a game board, selects h fixed values within it, and deletes the remaining values
  */
 SudokuBoard* generatePuzzle(SudokuBoard *game_sb, int h){
-    int i, x, y, idx;
+    int i, x = 0, y = 0, idx = 0;
     for (i = 0; i < h; ++i){
         y = rand() % (N*M); /* random row */
         x = rand() % (N*M); /* random column */
