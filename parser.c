@@ -35,6 +35,6 @@ char* parse_cmd(int* args){
         args[i] = -1;
         i++;
     }
-//    free(cmd_str);
+/*    free(cmd_str);*/
     return cmd;
 }
