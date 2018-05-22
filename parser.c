@@ -7,11 +7,10 @@
 
 int prsr_readInt(){
     int num = -1;
-    scanf("%d", &num);
     while (num < 0 || num > 80) {
-        printf("Error: Invalid number of cells to fill (should be between 0 and 80)\n");
-        while(getchar() != '\n');
         scanf("%d", &num);
+        if (num < 0 || num > 80)
+            printf("Error: Invalid number of cells to fill (should be between 0 and 80)\n");
     }
 
     return num;
