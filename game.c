@@ -31,8 +31,8 @@ SudokuBoard* gm_Generate_solution(){
 SudokuBoard* gm_Generate_puzzle(SudokuBoard* game_sb, int h){
     int i, x, y, idx;
     for (i = 0; i < h; ++i){
-        x = rand() % (N*M); /* random column */
         y = rand() % (N*M); /* random row */
+        x = rand() % (N*M); /* random column */
         idx = y*(N*M) + x;
         if (!game_sb->cells[idx]->fixed){ /* if cell is not yet fixed, make it fixed */
             game_sb->cells[idx]->fixed = 1;
