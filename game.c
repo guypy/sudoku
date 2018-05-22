@@ -118,7 +118,7 @@ int gm_restart(SudokuBoard* solved_sb, SudokuBoard* game_sb){
 int gm_StartGame(){
     int is_solved = 0;
     int num_of_fixed;
-    char* cmd;
+    char* cmd = NULL;
     int action_vars[3] = {-1, -1, -1}; /* array to pass to the parser which will update X,Y,Z accordingly */
     SudokuBoard* solved_sb = gm_Generate_solution();
     SudokuBoard* game_sb = sb_DeepCloneBoard(solved_sb);
@@ -126,6 +126,8 @@ int gm_StartGame(){
     game_sb = gm_Generate_puzzle(game_sb, num_of_fixed);
     while (1){
         sb_print(game_sb);
+        if (cmd != NULL)
+            free(cmd);
         cmd = parse_cmd(action_vars);
         if (is_solved == 0) {
             if (strcmp(cmd, SET) == 0){
@@ -152,11 +154,13 @@ int gm_StartGame(){
             continue;
         }
         if (strcmp(cmd, RESTART) == 0){
+            free(cmd);
             return gm_restart(solved_sb, game_sb);
         }
         if (strcmp(cmd, EXIT) == 0){
             sb_destroyBoard(solved_sb);
             sb_destroyBoard(game_sb);
+            free(cmd);
             exit(1);
         }
         printf("Error: invalid command\n");
