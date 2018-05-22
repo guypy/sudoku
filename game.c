@@ -87,11 +87,11 @@ void gm_hint(int x, int y, SudokuBoard* solved_sb){
     printf("Hint: set cell to %d\n", hint);
 }
 
-SudokuBoard* gm_validate(SudokuBoard* game_sb){
+SudokuBoard* gm_validate(SudokuBoard* cloned_game_sb){
     int is_random = 0;
     SudokuBoard* res;
-    setAllCellsFixed(game_sb);
-    res = slvr_SolveBoard(game_sb, is_random);
+    setAllCellsFixed(cloned_game_sb);
+    res = slvr_SolveBoard(cloned_game_sb, is_random);
     if (res == NULL)
         printf("Validation failed: board is unsolvable\n");
     else {
